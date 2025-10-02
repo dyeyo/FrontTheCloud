@@ -16,22 +16,16 @@ const api = axios.create({
  */
 function handleApiError(error) {
   if (error.response) {
-    // El servidor respondió con un estado fuera del rango 2xx
-    // Devolvemos el objeto de error para ser manejado por el componente
     return Promise.reject(error.response)
   } else if (error.request) {
-    // La solicitud fue hecha pero no se recibió respuesta (ej: servidor caído, CORS)
     return Promise.reject({
       status: 500,
       data: { message: 'No se pudo conectar al servidor. Inténtalo de nuevo.' },
     })
   } else {
-    // Algo pasó al configurar la solicitud
     return Promise.reject({ status: 500, data: { message: 'Error desconocido de la aplicación.' } })
   }
 }
-
-// --- LÓGICA DE TAREAS (Task API) ---
 
 export const TaskService = {
   // GET /tasks
@@ -64,8 +58,6 @@ export const TaskService = {
     }
   },
 }
-
-// --- LÓGICA DE KEYWORDS (Keyword API) ---
 
 export const KeywordService = {
   // GET /keywords
